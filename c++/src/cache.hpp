@@ -64,11 +64,11 @@ class HexCache : public Cache {
 
     void put(hexprefix_t prefix, const RangeResults::values_t &values)
     {
-        boost::container::flat_map<hexsuffix_t, int> flat_values(boost::container::ordered_unique_range, values.begin(), values.end());
-		  {
-           auto _lock = std::unique_lock{m_access_mutex};
-           m_cache[prefix] = std::move(flat_values);
-		  }
+        auto copy = values;
+        {
+            auto _lock = std::unique_lock{m_access_mutex};
+            m_cache[prefix] = std::move(copy);
+        }
     }
 
   private:

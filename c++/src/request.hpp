@@ -7,12 +7,13 @@
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl.hpp>
+#include <boost/container/flat_map.hpp>
 
 #include "digest.hpp"
 
 struct RangeResults
 {
-    using values_t = std::map<hexsuffix_t, int>;
+    using values_t = boost::container::flat_map<hexsuffix_t, int>;
     values_t values;
     std::size_t body_size = 0;
 };
