@@ -20,17 +20,19 @@ class Cache {
         Uncached
     };
 
-	 virtual ~Cache() = default;
+    virtual ~Cache() = default;
 
-    virtual std::pair<EntryStatus, std::size_t> get(const Digest &digest) const = 0;
-    virtual void put(hexprefix_t prefix, const RangeResults::values_t &results) = 0;
+    virtual std::pair<EntryStatus, std::size_t>
+    get(const Digest &digest) const = 0;
+    virtual void put(hexprefix_t prefix,
+                     const RangeResults::values_t &results) = 0;
 
-	 std::size_t prefix_hits() const { return m_prefix_hits; }
-	 std::size_t full_hits() const { return m_full_hits; }
+    std::size_t prefix_hits() const { return m_prefix_hits; }
+    std::size_t full_hits() const { return m_full_hits; }
 
   protected:
-	 mutable std::size_t m_prefix_hits {0};
-	 mutable std::size_t m_full_hits {0};
+    mutable std::size_t m_prefix_hits{0};
+    mutable std::size_t m_full_hits{0};
 };
 
 class HexCache : public Cache {
@@ -82,7 +84,5 @@ class NullCache : public Cache {
         return {Cache::EntryStatus::Uncached, 0};
     }
 
-    void put(hexprefix_t prefix, const RangeResults::values_t &results)
-    {
-    }
+    void put(hexprefix_t prefix, const RangeResults::values_t &results) {}
 };
